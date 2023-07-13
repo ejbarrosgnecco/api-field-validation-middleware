@@ -56,6 +56,24 @@ const validateApiFields = (fields, fieldValidation) => {
     const allFields = fieldValidation.fields || fieldValidation;
 
     let failedValues = [];
+
+    if(fieldValidation.rejectAdditionalFields) {
+        const additionalFields = Object.keys(fields).filter(f => {
+            return !allFields.some(v => {
+                v.key === f
+            })
+        }) 
+        
+        if(additionalFields.length > 0) {
+            return {
+                passed: false,
+                failedValues: additionalFields,
+                additionalFieldFailure: true
+            }
+        }
+    }
+
+    
     let passed = true;
 
     // Iterate through each value and check against criteria
@@ -84,17 +102,26 @@ const validateApiFields = (fields, fieldValidation) => {
         }
     }
 
-    return passed
+    return {
+        passed: passed,
+        failedValues: failedValues
+    }
 }
 
 const middlewareWrapper = (fieldValidation) => {
     return (req, res, next) => {
         const v = validateApiFields(req.body, fieldValidation)
     
-        if(v) {
+        if(v.passed) {
             next();
         } else {
-            res.status(400).json("One or more fields in this request were incorrectly formatted")
+            if(v.additionalFieldFailure) {
+                res.status(400).json(`The following fields are not permitted: ${v.failedValues.json(", ")}`)
+            } else if(fieldValidation.returnFailedValues) {
+                res.status(400).json(`The following fields were incorrectly formatted: ${v.failedValues.join(", ")}`)
+            } else {
+                res.status(400).json("One or more fields in this request were incorrectly formatted")
+            }
         }
     }
 }
