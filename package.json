@@ -2,11 +2,11 @@
   "name": "api-field-validation-middleware",
   "version": "1.0.3",
   "description": "",
-  "main": "dist/index.js",
+  "main": "dist/index.cjs",
   "type": "module",
   "typings": "dist/index.d.ts",
   "exports": {
-    "require": "./dist/index.js"
+    "require": "./dist/index.cjs"
   },
   "scripts": {
     "test": "jest --transformIgnorePatterns \"dist/*\"",
