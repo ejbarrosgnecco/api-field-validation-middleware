@@ -126,4 +126,4 @@ const middlewareWrapper = (fieldValidation) => {
     }
 }
 
-export default middlewareWrapper
+module.exports = middlewareWrapper
