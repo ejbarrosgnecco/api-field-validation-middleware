@@ -25,8 +25,8 @@ type FieldStructure = {
     key?: string,
     required?: boolean,
     nestedValues?: FieldStructure[] | ArrayConstraints, // For arrays & objects
-    freeArray: boolean // For arrays with ANY value composition
-    valueConstraints: TypeConstraints
+    freeArray?: boolean // For arrays with ANY value composition
+    valueConstraints?: TypeConstraints
 }
 export interface ValidationParams {
     rejectAdditionalFields?: boolean,

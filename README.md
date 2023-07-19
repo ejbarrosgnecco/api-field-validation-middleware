@@ -20,7 +20,7 @@ import:
 
 and use as:
 
-```
+```js
 const validationParams = {
 	rejectAdditionalFields: false,
 	returnFailedValues: true,
@@ -68,7 +68,7 @@ router.post("/new-customer", validateApiFields(validationParams), (req, res) => 
 | fields | array | | Constraints / validation params for body fields
 
 ### Field params
-```
+```js
 {
 	key: string, // name of field
 	required: boolean, // If field is required or not
