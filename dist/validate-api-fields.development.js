@@ -60,7 +60,7 @@ const validateApiFields = (fields, fieldValidation) => {
     if(fieldValidation.rejectAdditionalFields) {
         const additionalFields = Object.keys(fields).filter(f => {
             return !allFields.some(v => {
-                v.key === f
+                return v.key === f
             })
         }) 
         
