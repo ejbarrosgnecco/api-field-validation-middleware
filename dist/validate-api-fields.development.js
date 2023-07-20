@@ -116,7 +116,7 @@ const middlewareWrapper = (fieldValidation) => {
             next();
         } else {
             if(v.additionalFieldFailure) {
-                res.status(400).json(`The following fields are not permitted: ${v.failedValues.json(", ")}`)
+                res.status(400).json(`The following fields are not permitted: ${v.failedValues.join(", ")}`)
             } else if(fieldValidation.returnFailedValues) {
                 res.status(400).json(`The following fields were incorrectly formatted: ${v.failedValues.join(", ")}`)
             } else {
